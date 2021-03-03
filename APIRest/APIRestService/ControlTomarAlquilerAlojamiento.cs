@@ -182,7 +182,7 @@ namespace APIRest.APIRestService
         ///<param name="idAlojamiento">entero, datos faltantes en alquiler</param>
         /// <returns>Se obtiene un TRUE diciendo que los datos se ingresaron o False que alojamiento no esta disponible</returns>
         ///
-        public Boolean ingresarDatosFaltantes(int numeroContrato, int numeroMeses, decimal pagoMensual, string fechaAlquiler, int idAlojamiento)
+        public Boolean ingresarDatosFaltantes(int numeroContrato, int numeroMeses, decimal pagoMensual, DateTime fechaAlquiler, int idAlojamiento)
         {
             return control.ingresarDatosFaltantes(numeroContrato,numeroMeses,pagoMensual,fechaAlquiler,idAlojamiento);
            

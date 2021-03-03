@@ -27,7 +27,7 @@ namespace APIRest.Controllers
 
         // POST: api/TomarAlquilerAlojamiento
         //Corregir
-        public Boolean Post(int numeroContrato, int numeroMeses, decimal pagoMensual, string fechaAlquiler, int idAlojamiento)
+        public Boolean Post(int numeroContrato, int numeroMeses, decimal pagoMensual, DateTime fechaAlquiler, int idAlojamiento)
         {
             return control.ingresarDatosFaltantes(numeroContrato,numeroMeses,pagoMensual,fechaAlquiler,idAlojamiento);
         }

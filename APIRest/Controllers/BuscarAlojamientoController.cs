@@ -6,6 +6,7 @@ using Datos;
 using APIRest.IServices;
 using APIRest.APIRestService;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace APIRest.Controllers
 {
@@ -46,6 +47,12 @@ namespace APIRest.Controllers
             return control.RetornarInformacionAlojamiento(id);
 
         }
-        
+
+        [HttpGet]
+        public IList<JObject> ConsultarInformacionAlojamiento(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);
+        }
+
     }
 }

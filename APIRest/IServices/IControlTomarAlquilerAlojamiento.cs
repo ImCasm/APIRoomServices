@@ -19,7 +19,7 @@ namespace APIRest.IServices
         Arrendatario listaArrendatario(string cedula);
         
         JObject InformacionAlojamientoGeneral(int alojamiento, string arrendador, string arrendatario);
-        Boolean ingresarDatosFaltantes(int numeroContrato, int numeroMeses, Decimal pagoMensual, string fechaAlquiler, int idAlojamiento);
+        Boolean ingresarDatosFaltantes(int numeroContrato, int numeroMeses, Decimal pagoMensual, DateTime fechaAlquiler, int idAlojamiento);
 
         Alquiler listaAlquiler(int idAlojamiento);
     }

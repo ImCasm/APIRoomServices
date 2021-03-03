@@ -435,7 +435,7 @@
           <Property Name="numeroContrato" Type="Int32" Nullable="false" />
           <Property Name="numeroMeses" Type="Int32" Nullable="false" />
           <Property Name="pagoMensual" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="fechaAlquiler" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="fechaAlquiler" Type="DateTime" Nullable="false" />
           <Property Name="idAlojamiento" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Alojamientos" Relationship="Self.FK_AlquilersAlojamientos_Alojamientos" FromRole="AlquilersAlojamientos" ToRole="Alojamientos" />
         </EntityType>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Datos;
 using Dominio.EntidadesDelDominio.Entidades;
 using Negocio.ILogicaNegocio;
+using Newtonsoft.Json.Linq;
 
 using Negocio.ControlExcepciones;
 
@@ -32,7 +33,7 @@ namespace Negocio.ControlRepository
                                     DescripcionAlojamiento = item.descripcionAlojamiento,
                                     Precio = (double)item.precio,
                                     TipoAlojamiento = item.tipoAlojamiento,
-                                    CedulaArrendador= item.cedulaArrendador,
+                                    CedulaArrendador = item.cedulaArrendador,
 
                                 });
 
@@ -65,33 +66,34 @@ namespace Negocio.ControlRepository
             using (RoomServicesEntities entidades = new RoomServicesEntities())
             {
 
-                
+
                 var query = (from item in entidades.Alojamientos
-                                    where (item.idAlojamiento == idAlojamiento)
-                                    select item.CalificacionesAlojamiento);
+                             where (item.idAlojamiento == idAlojamiento)
+                             select item.CalificacionesAlojamiento);
 
-                if (query.Count() > 0) {     
-                        var calificaiones  = query.First();
-                        foreach (var item in calificaiones)
+                if (query.Count() > 0)
+                {
+                    var calificaiones = query.First();
+                    foreach (var item in calificaiones)
+                    {
+                        var calificacion = this.RetornarCalificacion(item.idCalificacion);
+                        lista.Add(new Calificacion()
                         {
-                            var calificacion = this.RetornarCalificacion(item.idCalificacion);
-                            lista.Add(new Calificacion()
-                            {
-                                IdCalificacion = item.idCalificacion,
-                                CalificacionHabitacion = (byte)calificacion.calificacionAlojamiento,
-                                ComentarioCalificacion = calificacion.comentarioAlojamiento
+                            IdCalificacion = item.idCalificacion,
+                            CalificacionHabitacion = (byte)calificacion.calificacionAlojamiento,
+                            ComentarioCalificacion = calificacion.comentarioAlojamiento
 
-                            });
+                        });
 
-                        }
-                        return lista;
+                    }
+                    return lista;
                 }
                 else
                 {
                     return null;
                 }
-                
-                
+
+
 
             }
         }
@@ -114,15 +116,15 @@ namespace Negocio.ControlRepository
 
                 if (query.Count() > 0)
                 {
-                    
+
                     foreach (var item in query)
                     {
                         var fotografia = this.RetornarFotografia(item.idFotografia);
                         lista.Add(new AlbumFotografico()
                         {
-                            NombreArchivo= item.nombreArchivo,
-                            Formato= item.formato,
-                            RutaGuardado= item.rutaGuardado
+                            NombreArchivo = item.nombreArchivo,
+                            Formato = item.formato,
+                            RutaGuardado = item.rutaGuardado
 
                         });
 
@@ -187,18 +189,19 @@ namespace Negocio.ControlRepository
 
             using (RoomServicesEntities entidades = new RoomServicesEntities())
             {
-                var consulta = (from arrend in entidades.Arrendadores join usu in entidades.Usuarios
-                                on arrend.cedula equals usu.cedula
+                var consulta = (from arrend in entidades.Arrendadores
+                                join usu in entidades.Usuarios
+on arrend.cedula equals usu.cedula
                                 where (arrend.cedula == cedulaArrendador)
 
                                 select new Arrendador()
                                 {
-                                    Cedula= usu.cedula,
-                                    Nombre= usu.nombre,
-                                    Apellido= usu.apellido,
+                                    Cedula = usu.cedula,
+                                    Nombre = usu.nombre,
+                                    Apellido = usu.apellido,
                                     Fecha = usu.fechaNacimiento,
-                                    Nacionalidad= usu.nacionalidad,
-                                    Genero= usu.genero,
+                                    Nacionalidad = usu.nacionalidad,
+                                    Genero = usu.genero,
                                     IdArrendador = arrend.idArrendador
 
                                 }).First();
@@ -275,6 +278,30 @@ namespace Negocio.ControlRepository
 
         }
 
+        public IList<JObject> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
+        {
+
+            using (RoomServicesEntities entidades = new RoomServicesEntities())
+            {
+
+                var consulta = (from alquilerAlojamiento in entidades.AlquilersAlojamientos
+                                join alojamiento in entidades.Alojamientos on alquilerAlojamiento.idAlojamiento equals alojamiento.idAlojamiento
+                                where (alquilerAlojamiento.fechaAlquiler == fechaInicio && alquilerAlojamiento.fechaAlquiler.AddMonths(alquilerAlojamiento.numeroMeses) == fechaFin)
+                                select JObject.FromObject(new
+                                {
+                                    IdAlojamiento = alojamiento.idAlojamiento,
+                                    NumeroContrato = alquilerAlojamiento.numeroContrato,
+                                    PagoMensual = (double)alquilerAlojamiento.pagoMensual,
+                                    FechaAlquiler = alquilerAlojamiento.fechaAlquiler,
+                                    FechaFinal = alquilerAlojamiento.fechaAlquiler.AddMonths(alquilerAlojamiento.numeroMeses)
+                                })).ToList();
+
+                return consulta;
+
+            }
+
+        }
+
 
         /// <summary>
         /// Permite retornar el promedio de todas las calificaciones realizadas a al alojamiento
@@ -296,7 +323,8 @@ namespace Negocio.ControlRepository
 
                 return suma / calificaciones.Count();
             }
-            else {
+            else
+            {
 
                 return 0;
             }

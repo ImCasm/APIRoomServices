@@ -14,7 +14,7 @@ namespace Negocio.ILogicaNegocio
         Alojamiento listaAlojamiento(int idAlojamoiento);
         Arrendador listaArredandor(string cedula);
         Arrendatario listaArrendatario(string cedula);
-        Boolean ingresarDatosFaltantes(int numeroContrato, int numeroMeses, Decimal pagoMensual, string fechaAlquiler, int idAlojamiento);
+        Boolean ingresarDatosFaltantes(int numeroContrato, int numeroMeses, Decimal pagoMensual, DateTime fechaAlquiler, int idAlojamiento);
         Alquiler listaAlquiler(int idAlojamiento);
          
     }

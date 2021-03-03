@@ -133,7 +133,7 @@ namespace Negocio.ControlRepository
         ///<param name="idAlojamiento">entero, datos faltantes en alquiler</param>
         /// <returns>Se obtiene un TRUE diciendo que los datos se ingresaron o False que alojamiento no esta disponible</returns>
         ///
-        public Boolean ingresarDatosFaltantes(int numeroContrato, int numeroMeses, Decimal pagoMensual, string fechaAlquiler, int idAlojamiento)
+        public Boolean ingresarDatosFaltantes(int numeroContrato, int numeroMeses, Decimal pagoMensual, DateTime fechaAlquiler, int idAlojamiento)
         {
             var alojamiento = this.listaAlojamiento(idAlojamiento);
 

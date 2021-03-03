@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Dominio.EntidadesDelDominio.Entidades;
+using Newtonsoft.Json.Linq;
 
 namespace Negocio.ILogicaNegocio
 {
@@ -58,6 +59,8 @@ namespace Negocio.ILogicaNegocio
 
 
         List<AlbumFotografico> RetornarFotografiasAlojamiento(int idAlojamiento);
+
+        IList<JObject> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
 
     }
 }

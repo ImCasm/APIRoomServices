@@ -202,5 +202,10 @@ namespace APIRest.APIRestService
                 return BuscarAlojamientoException.ArmarJSONInformacionException("sin archivos");
             }
         }
+
+        public IList<JObject> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);
+        }
     }
 }
