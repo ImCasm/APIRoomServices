@@ -7,6 +7,7 @@ using APIRest.IServices;
 using APIRest.APIRestService;
 using Newtonsoft.Json.Linq;
 using System;
+using Dominio.EntidadesDelDominio.Entidades;
 
 namespace APIRest.Controllers
 {
@@ -49,7 +50,7 @@ namespace APIRest.Controllers
         }
 
         [HttpGet]
-        public IList<JObject> ConsultarInformacionAlojamiento(DateTime fechaInicio, DateTime fechaFin)
+        public IList<Alquiler> ConsultarInformacionAlojamiento(DateTime fechaInicio, DateTime fechaFin)
         {
             return control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);
         }

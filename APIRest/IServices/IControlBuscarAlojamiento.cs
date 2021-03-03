@@ -37,7 +37,7 @@ namespace APIRest.IServices
 
         JObject RetornarFotografiasAlojamiento(int idAlojamiento);
 
-        IList<JObject> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
+        IList<Alquiler> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
 
     }
 }

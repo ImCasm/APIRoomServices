@@ -203,7 +203,7 @@ namespace APIRest.APIRestService
             }
         }
 
-        public IList<JObject> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
+        public IList<Alquiler> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
             return control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);
         }

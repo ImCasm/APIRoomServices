@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RoomServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RoomServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administradores">
           <Key>
             <PropertyRef Name="cedula" />
@@ -43,7 +43,7 @@
           <Property Name="numeroContrato" Type="int" Nullable="false" />
           <Property Name="numeroMeses" Type="int" Nullable="false" />
           <Property Name="pagoMensual" Type="numeric" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="fechaAlquiler" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="fechaAlquiler" Type="datetime" />
           <Property Name="idAlojamiento" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Arrendadores">
@@ -286,18 +286,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CuentasUsuarios_Administradores">
-          <End Role="Administradores" Type="Self.Administradores" Multiplicity="1" />
-          <End Role="CuentasUsuarios" Type="Self.CuentasUsuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Administradores">
-              <PropertyRef Name="cedula" />
-            </Principal>
-            <Dependent Role="CuentasUsuarios">
-              <PropertyRef Name="cedulaUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CuentasUsuarios_Usuarios1">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="CuentasUsuarios" Type="Self.CuentasUsuarios" Multiplicity="*" />
@@ -376,17 +364,12 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="CuentasBancarias" EntitySet="CuentasBancarias" />
           </AssociationSet>
-          <AssociationSet Name="FK_CuentasUsuarios_Administradores" Association="Self.FK_CuentasUsuarios_Administradores">
-            <End Role="Administradores" EntitySet="Administradores" />
-            <End Role="CuentasUsuarios" EntitySet="CuentasUsuarios" />
-          </AssociationSet>
           <AssociationSet Name="FK_CuentasUsuarios_Usuarios1" Association="Self.FK_CuentasUsuarios_Usuarios1">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="CuentasUsuarios" EntitySet="CuentasUsuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RoomServicesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -435,7 +418,7 @@
           <Property Name="numeroContrato" Type="Int32" Nullable="false" />
           <Property Name="numeroMeses" Type="Int32" Nullable="false" />
           <Property Name="pagoMensual" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="fechaAlquiler" Type="DateTime" Nullable="false" />
+          <Property Name="fechaAlquiler" Type="DateTime" Precision="3" />
           <Property Name="idAlojamiento" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Alojamientos" Relationship="Self.FK_AlquilersAlojamientos_Alojamientos" FromRole="AlquilersAlojamientos" ToRole="Alojamientos" />
         </EntityType>

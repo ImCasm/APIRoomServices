@@ -60,7 +60,7 @@ namespace Negocio.ILogicaNegocio
 
         List<AlbumFotografico> RetornarFotografiasAlojamiento(int idAlojamiento);
 
-        IList<JObject> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
+        IList<Alquiler> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
 
     }
 }

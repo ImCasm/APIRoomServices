@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Datos
 {
     using System;
@@ -19,7 +17,7 @@ namespace Datos
         public int numeroContrato { get; set; }
         public int numeroMeses { get; set; }
         public decimal pagoMensual { get; set; }
-        public DateTime fechaAlquiler { get; set; }
+        public Nullable<System.DateTime> fechaAlquiler { get; set; }
         public int idAlojamiento { get; set; }
     
         public virtual Alojamientos Alojamientos { get; set; }

@@ -278,23 +278,21 @@ on arrend.cedula equals usu.cedula
 
         }
 
-        public IList<JObject> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
+        public IList<Alquiler> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
 
             using (RoomServicesEntities entidades = new RoomServicesEntities())
             {
 
                 var consulta = (from alquilerAlojamiento in entidades.AlquilersAlojamientos
-                                join alojamiento in entidades.Alojamientos on alquilerAlojamiento.idAlojamiento equals alojamiento.idAlojamiento
-                                where (alquilerAlojamiento.fechaAlquiler == fechaInicio && alquilerAlojamiento.fechaAlquiler.AddMonths(alquilerAlojamiento.numeroMeses) == fechaFin)
-                                select JObject.FromObject(new
+                                where alquilerAlojamiento.fechaAlquiler == fechaInicio
+                                select new Alquiler
                                 {
-                                    IdAlojamiento = alojamiento.idAlojamiento,
                                     NumeroContrato = alquilerAlojamiento.numeroContrato,
                                     PagoMensual = (double)alquilerAlojamiento.pagoMensual,
-                                    FechaAlquiler = alquilerAlojamiento.fechaAlquiler,
-                                    FechaFinal = alquilerAlojamiento.fechaAlquiler.AddMonths(alquilerAlojamiento.numeroMeses)
-                                })).ToList();
+                                    FechaAlquiler = (DateTime)alquilerAlojamiento.fechaAlquiler,
+                                    NumeroMeses = (byte)alquilerAlojamiento.numeroMeses
+                                }).ToList();
 
                 return consulta;
 
