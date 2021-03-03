@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using Datos;
 using Dominio.EntidadesDelDominio.Entidades;
 using Newtonsoft.Json.Linq;
 
@@ -37,7 +37,7 @@ namespace APIRest.IServices
 
         JObject RetornarFotografiasAlojamiento(int idAlojamiento);
 
-        IList<Alquiler> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
+        JObject ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
 
     }
 }

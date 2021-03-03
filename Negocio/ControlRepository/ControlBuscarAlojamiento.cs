@@ -9,6 +9,7 @@ using Negocio.ILogicaNegocio;
 using Newtonsoft.Json.Linq;
 
 using Negocio.ControlExcepciones;
+using System.Data.Entity;
 
 namespace Negocio.ControlRepository
 {
@@ -278,21 +279,17 @@ on arrend.cedula equals usu.cedula
 
         }
 
-        public IList<Alquiler> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
+        public IList<AlquilersAlojamientos> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
 
             using (RoomServicesEntities entidades = new RoomServicesEntities())
             {
 
-                var consulta = (from alquilerAlojamiento in entidades.AlquilersAlojamientos
-                                where alquilerAlojamiento.fechaAlquiler == fechaInicio
-                                select new Alquiler
-                                {
-                                    NumeroContrato = alquilerAlojamiento.numeroContrato,
-                                    PagoMensual = (double)alquilerAlojamiento.pagoMensual,
-                                    FechaAlquiler = (DateTime)alquilerAlojamiento.fechaAlquiler,
-                                    NumeroMeses = (byte)alquilerAlojamiento.numeroMeses
-                                }).ToList();
+                var consulta = entidades.AlquilersAlojamientos
+                    .Where(alquiler => alquiler.fechaAlquiler > fechaInicio)
+                    .Include(a => a.Alojamientos)
+                    .ToList()
+                    .FindAll(i => i.fechaAlquiler.GetValueOrDefault().AddMonths(i.numeroMeses) < fechaFin);
 
                 return consulta;
 

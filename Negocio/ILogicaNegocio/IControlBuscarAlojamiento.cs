@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Datos;
 using Dominio.EntidadesDelDominio.Entidades;
 using Newtonsoft.Json.Linq;
 
@@ -60,7 +60,7 @@ namespace Negocio.ILogicaNegocio
 
         List<AlbumFotografico> RetornarFotografiasAlojamiento(int idAlojamiento);
 
-        IList<Alquiler> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
+        IList<AlquilersAlojamientos> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin);
 
     }
 }

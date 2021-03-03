@@ -50,7 +50,7 @@ namespace APIRest.Controllers
         }
 
         [HttpGet]
-        public IList<Alquiler> ConsultarInformacionAlojamiento(DateTime fechaInicio, DateTime fechaFin)
+        public JObject ConsultarInformacionAlojamiento(DateTime fechaInicio, DateTime fechaFin)
         {
             return control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);
         }

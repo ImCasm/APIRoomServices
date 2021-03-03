@@ -10,6 +10,7 @@ using APIRest.ExcepcionesAPIRestService;
 
 using APIRest.IServices;
 using Newtonsoft.Json.Linq;
+using Datos;
 
 namespace APIRest.APIRestService
 {
@@ -203,9 +204,46 @@ namespace APIRest.APIRestService
             }
         }
 
-        public IList<Alquiler> ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
+        public JObject ListarAlojamientosPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
-            return control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);
+
+            IList<JObject> alojamientosJSON = new List<JObject>();
+            var consulta = control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);
+
+            if (consulta.Count > 0)
+            {
+                foreach (var item in consulta)
+                {
+                    alojamientosJSON.Add(JObject.FromObject(new
+                    {
+                        numeroContrato = item.numeroContrato,
+                        pagoMensual = item.pagoMensual,
+                        fechaInicio = item.fechaAlquiler,
+                        fechaFin = item.fechaAlquiler.GetValueOrDefault().AddMonths(item.numeroMeses),
+                        idAlojamiento = item.idAlojamiento,
+                        cedulaArrendador = item.Alojamientos.cedulaArrendador,
+                        alojamiento = JObject.FromObject(new {
+                            id = item.Alojamientos.idAlojamiento,
+                            cedulaArrendatario = item.Alojamientos.cedulaArrendador,
+                            tipo = item.Alojamientos.tipoAlojamiento,
+                            titulo = item.Alojamientos.titulo,
+                            descripcion = item.Alojamientos.descripcionAlojamiento
+                        })
+                    }));
+                }
+                
+            }
+            else
+            {
+                alojamientosJSON.Add(BuscarAlojamientoException.ArmarJSONInformacionException("sin resultados"));
+            }
+
+            var resp = new {
+                alojamientos = alojamientosJSON,
+                cantidad = alojamientosJSON.Count
+            };
+
+            return JObject.FromObject(resp);
         }
     }
 }
