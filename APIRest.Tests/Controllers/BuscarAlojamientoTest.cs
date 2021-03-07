@@ -12,14 +12,14 @@ namespace APIRest.Tests.Controllers
     [TestClass]
     public class BuscarAlojamientoTest
     {
-        [TestMethod]
-        public void VerificarEncapsulamientoAlquiTest()
-        {
-            ControlTomarAlquilerAlojamiento controlAlquiler = new ControlTomarAlquilerAlojamiento();
-            int IdAl = 3;
-            Alquiler resultado = controlAlquiler.listaAlquiler(IdAl);
-            Assert.AreEqual(1234, resultado.NumeroContrato);
-        }
+        //[TestMethod]
+        //public void VerificarEncapsulamientoAlquiTest()
+        //{
+        //    ControlTomarAlquilerAlojamiento controlAlquiler = new ControlTomarAlquilerAlojamiento();
+        //    int IdAl = 3;
+        //    Alquiler resultado = controlAlquiler.listaAlquiler(IdAl);
+        //    Assert.AreEqual(1234, resultado.NumeroContrato);
+        //}
 
 
         /// <summary>
@@ -32,7 +32,6 @@ namespace APIRest.Tests.Controllers
             DateTime fecha1 = new DateTime(2008,02,01);
             DateTime fecha2 = new DateTime(2021, 12, 30);
             JObject resultado= buscarAlojamientoController.ConsultarInformacionAlojamiento(fecha1,fecha2);
-            Console.WriteLine(resultado["error"]);
             Assert.IsTrue(resultado["cantidad"].ToString() == "1");
         }
 
@@ -46,7 +45,6 @@ namespace APIRest.Tests.Controllers
             DateTime fecha1 = new DateTime(1900, 02, 01);
             DateTime fecha2 = new DateTime(1900, 12, 30);
             JObject resultado = buscarAlojamientoController.ConsultarInformacionAlojamiento(fecha1, fecha2);
-            Console.WriteLine(resultado["error"]);
             Assert.IsTrue(resultado["cantidad"].ToString() == "0");
         }
 
@@ -60,7 +58,6 @@ namespace APIRest.Tests.Controllers
             DateTime fecha1 = new DateTime(2005, 02, 01);
             DateTime fecha2 = new DateTime(2021, 12, 30);
             JObject resultado = buscarAlojamientoController.ConsultarInformacionAlojamiento(fecha1, fecha2);
-            Console.WriteLine(resultado["error"]);
             Assert.IsTrue(int.Parse(resultado["cantidad"].ToString()) > 0);
         }
 

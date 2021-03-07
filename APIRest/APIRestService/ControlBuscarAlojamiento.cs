@@ -214,30 +214,41 @@ namespace APIRest.APIRestService
             {
                 foreach (var item in consulta)
                 {
-                    alojamientosJSON.Add(JObject.FromObject(new
-                    {
-                        numeroContrato = item.numeroContrato,
-                        pagoMensual = item.pagoMensual,
-                        fechaInicio = item.fechaAlquiler,
-                        fechaFin = item.fechaAlquiler.GetValueOrDefault().AddMonths(item.numeroMeses),
-                        idAlojamiento = item.idAlojamiento,
-                        cedulaArrendador = item.Alojamientos.cedulaArrendador,
-                        alojamiento = JObject.FromObject(new {
-                            id = item.Alojamientos.idAlojamiento,
-                            cedulaArrendatario = item.Alojamientos.cedulaArrendador,
-                            tipo = item.Alojamientos.tipoAlojamiento,
-                            titulo = item.Alojamientos.titulo,
-                            descripcion = item.Alojamientos.descripcionAlojamiento
-                        })
-                    }));
+                    alojamientosJSON.Add(MapearAlojamientos(item));
                 }
-                
             }
 
-            var resp = new {
+            return RespuestaAlojamientos(alojamientosJSON);
+        }
+
+        private JObject MapearAlojamientos(AlquilersAlojamientos item)
+        {
+            return JObject.FromObject(new
+            {
+                numeroContrato = item.numeroContrato,
+                pagoMensual = item.pagoMensual,
+                fechaInicio = item.fechaAlquiler,
+                fechaFin = item.fechaAlquiler.GetValueOrDefault().AddMonths(item.numeroMeses),
+                idAlojamiento = item.idAlojamiento,
+                cedulaArrendador = item.Alojamientos.cedulaArrendador,
+                alojamiento = JObject.FromObject(new
+                {
+                    id = item.Alojamientos.idAlojamiento,
+                    cedulaArrendatario = item.Alojamientos.cedulaArrendador,
+                    tipo = item.Alojamientos.tipoAlojamiento,
+                    titulo = item.Alojamientos.titulo,
+                    descripcion = item.Alojamientos.descripcionAlojamiento
+                })
+            });
+        }
+
+        private JObject RespuestaAlojamientos(IList<JObject> alojamientosJSON)
+        {
+            var resp = new
+            {
                 alojamientos = alojamientosJSON,
                 cantidad = alojamientosJSON.Count,
-                error = alojamientosJSON.Count > 0? null : "404 no se encontraron resultados"
+                error = alojamientosJSON.Count > 0 ? null : "404 no se encontraron resultados"
             };
 
             return JObject.FromObject(resp);
