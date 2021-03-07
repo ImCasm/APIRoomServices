@@ -13,38 +13,56 @@ namespace APIRest.Tests.Controllers
     public class BuscarAlojamientoTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void VerificarEncapsulamientoAlquiTest()
         {
             ControlTomarAlquilerAlojamiento controlAlquiler = new ControlTomarAlquilerAlojamiento();
             int IdAl = 3;
             Alquiler resultado = controlAlquiler.listaAlquiler(IdAl);
             Assert.AreEqual(1234, resultado.NumeroContrato);
-
         }
+
+
+        /// <summary>
+        /// Verifica quela en una rango de fecha exista una cantidad EXACTA de alojamientos
+        /// </summary>
         [TestMethod]
-        public void TestBuscarAlojamientoFechasEncontrar()
+        public void TestBuscarAlojamientosEspecificas()
         {
             BuscarAlojamientoController buscarAlojamientoController = new BuscarAlojamientoController();
             DateTime fecha1 = new DateTime(2008,02,01);
-            DateTime fecha2 = new DateTime(2020, 12, 30);
+            DateTime fecha2 = new DateTime(2021, 12, 30);
             JObject resultado= buscarAlojamientoController.ConsultarInformacionAlojamiento(fecha1,fecha2);
             Console.WriteLine(resultado["error"]);
-           // dynamic results = JsonConvert.DeserializeObject<dynamic>(resultado);
-            Assert.IsTrue(resultado["error"]!=null);
+            Assert.IsTrue(resultado["cantidad"].ToString() == "1");
         }
+
+        /// <summary>
+        /// Verifica que en un rango de fecha NO existan alojamientos
+        /// </summary>
         [TestMethod]
-        public void TestBuscarAlojamientoFechasnoEncontrada()
+        public void TestBuscarAlojamientoFechasNoEncontrada()
         {
             BuscarAlojamientoController buscarAlojamientoController = new BuscarAlojamientoController();
             DateTime fecha1 = new DateTime(1900, 02, 01);
             DateTime fecha2 = new DateTime(1900, 12, 30);
             JObject resultado = buscarAlojamientoController.ConsultarInformacionAlojamiento(fecha1, fecha2);
             Console.WriteLine(resultado["error"]);
-            // dynamic results = JsonConvert.DeserializeObject<dynamic>(resultado);
-            Assert.IsTrue(resultado["error"].Equals("404 no se encontraron resultados"));
+            Assert.IsTrue(resultado["cantidad"].ToString() == "0");
         }
 
-
+        /// <summary>
+        /// Verifica que en un rango de fecha exista por lo menos UN alojamiento
+        /// </summary>
+        [TestMethod]
+        public void TestBuscarAlojamientoFechas()
+        {
+            BuscarAlojamientoController buscarAlojamientoController = new BuscarAlojamientoController();
+            DateTime fecha1 = new DateTime(2005, 02, 01);
+            DateTime fecha2 = new DateTime(2021, 12, 30);
+            JObject resultado = buscarAlojamientoController.ConsultarInformacionAlojamiento(fecha1, fecha2);
+            Console.WriteLine(resultado["error"]);
+            Assert.IsTrue(int.Parse(resultado["cantidad"].ToString()) > 0);
+        }
 
     }
 }
