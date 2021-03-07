@@ -286,10 +286,10 @@ on arrend.cedula equals usu.cedula
             {
 
                 var consulta = entidades.AlquilersAlojamientos
-                    .Where(alquiler => alquiler.fechaAlquiler > fechaInicio)
+                    .Where(alquiler => alquiler.fechaAlquiler >= fechaInicio)
                     .Include(a => a.Alojamientos)
                     .ToList()
-                    .FindAll(i => i.fechaAlquiler.GetValueOrDefault().AddMonths(i.numeroMeses) < fechaFin);
+                    .FindAll(i => i.fechaAlquiler.GetValueOrDefault().AddMonths(i.numeroMeses) <= fechaFin);
 
                 return consulta;
             }
