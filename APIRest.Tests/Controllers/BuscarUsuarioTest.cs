@@ -8,7 +8,7 @@ namespace APIRest.Tests.Controllers
 {
     [TestClass]
     public class BuscarUsuarioTest
-    {
+    {/*
 
         /// <summary>
         /// Probar ingresar la cédula de un usuario existente.
@@ -80,6 +80,6 @@ namespace APIRest.Tests.Controllers
             var resultado = controlAlquiler.listaArrendatario(cedulaArrendador);
             Assert.AreEqual(null, resultado);
             
-        }
+        }*/
     }
 }

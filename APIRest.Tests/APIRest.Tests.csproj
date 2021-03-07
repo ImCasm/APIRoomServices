@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BuscarAlojamientoTest.cs" />
     <Compile Include="Controllers\BuscarUsuarioTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
@@ -112,6 +113,10 @@
     <ProjectReference Include="..\APIRest\APIRest.csproj">
       <Project>{CCD65764-C1F5-435A-A403-1745FB0C36FB}</Project>
       <Name>APIRest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Datos\Datos.csproj">
+      <Project>{D8F59B23-FD8B-4A56-A2F2-402D505A9262}</Project>
+      <Name>Datos</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dominio\Dominio.csproj">
       <Project>{acf61fba-63a2-45a7-bd0e-a08501179890}</Project>
