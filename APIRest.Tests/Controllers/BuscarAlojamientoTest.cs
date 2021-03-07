@@ -3,6 +3,7 @@ using Dominio.EntidadesDelDominio.Abstractas;
 using Dominio.EntidadesDelDominio.Entidades;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Negocio.ControlRepository;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
@@ -21,16 +22,28 @@ namespace APIRest.Tests.Controllers
 
         }
         [TestMethod]
-        public void TestBuscarAlojamientoFechas()
+        public void TestBuscarAlojamientoFechasEncontrar()
         {
             BuscarAlojamientoController buscarAlojamientoController = new BuscarAlojamientoController();
             DateTime fecha1 = new DateTime(2008,02,01);
-            DateTime fecha2 = new DateTime(2030, 12, 30);
+            DateTime fecha2 = new DateTime(2020, 12, 30);
             JObject resultado= buscarAlojamientoController.ConsultarInformacionAlojamiento(fecha1,fecha2);
-            Console.WriteLine(resultado);
-            Assert.IsTrue(resultado.Count>1);
+            Console.WriteLine(resultado["error"]);
+           // dynamic results = JsonConvert.DeserializeObject<dynamic>(resultado);
+            Assert.IsTrue(resultado["error"]!=null);
         }
-        
+        [TestMethod]
+        public void TestBuscarAlojamientoFechasnoEncontrada()
+        {
+            BuscarAlojamientoController buscarAlojamientoController = new BuscarAlojamientoController();
+            DateTime fecha1 = new DateTime(1900, 02, 01);
+            DateTime fecha2 = new DateTime(1900, 12, 30);
+            JObject resultado = buscarAlojamientoController.ConsultarInformacionAlojamiento(fecha1, fecha2);
+            Console.WriteLine(resultado["error"]);
+            // dynamic results = JsonConvert.DeserializeObject<dynamic>(resultado);
+            Assert.IsTrue(resultado["error"].Equals("404 no se encontraron resultados"));
+        }
+
 
 
     }
