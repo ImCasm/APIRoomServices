@@ -164,7 +164,7 @@ namespace APIRest.APIRestService
                      alquiler = new Alquiler ()
                     {
                          NumeroContrato=alquiler.NumeroContrato,
-                         NumeroMeses= (byte)alquiler.numeroMeses,
+                         NumeroMeses= (byte)alquiler.NumeroMeses1,
                          PagoMensual = alquiler.PagoMensual,
                                                                       
                     } 

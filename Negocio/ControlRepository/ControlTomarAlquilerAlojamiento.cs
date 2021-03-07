@@ -196,7 +196,7 @@ namespace Negocio.ControlRepository
                                select new Alquiler()
                                {
                                   NumeroContrato = alqui.numeroContrato,
-                                  numeroMeses = (byte)alqui.numeroMeses,
+                                  NumeroMeses1 = (byte)alqui.numeroMeses,
                                   PagoMensual = (double)alqui.pagoMensual,
                                //   FechaAlquiler = Convert.ToDateTime(alqui.fechaAlquiler),
 

@@ -10,10 +10,10 @@ namespace Dominio.EntidadesDelDominio.Entidades
     {
         public DateTime FechaAlquiler { get; set; }
         public int NumeroContrato { get; set; }
-        public  byte numeroMeses;
-        public Alojamiento alojamiento;
-        double pagoMensual;
-        public DateTime fechaAlquiler;
+        private byte numeroMeses1;
+        private Alojamiento alojamiento;
+        private double pagoMensual1;
+        private DateTime fechaAlquiler1;
 
         public Alquiler(DateTime fechaAlquiler, int numeroContrato, byte numeroMeses, double pagoMensual)
         {
@@ -30,15 +30,19 @@ namespace Dominio.EntidadesDelDominio.Entidades
 
         public byte NumeroMeses
         {
-            get => this.numeroMeses;
-            set => this.numeroMeses = this.SetNumeroMeses(value);
+            get => this.NumeroMeses1;
+            set => this.NumeroMeses1 = this.SetNumeroMeses(value);
         }
 
         public double PagoMensual
         {
-            get => this.pagoMensual;
-            set => this.pagoMensual = this.SetPagoMensual(value);
+            get => this.PagoMensual1;
+            set => this.PagoMensual1 = this.SetPagoMensual(value);
         }
+        public byte NumeroMeses1 { get => numeroMeses1; set => numeroMeses1 = value; }
+        public Alojamiento Alojamiento { get => alojamiento; set => alojamiento = value; }
+        public double PagoMensual1 { get => pagoMensual1; set => pagoMensual1 = value; }
+        public DateTime FechaAlquiler1 { get => fechaAlquiler1; set => fechaAlquiler1 = value; }
 
         /// <summary>
         /// Permite establecer un valor para el pago mensual del alojamiento siempre y cuando este sea cero
