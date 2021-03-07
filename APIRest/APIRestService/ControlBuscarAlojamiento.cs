@@ -233,14 +233,11 @@ namespace APIRest.APIRestService
                 }
                 
             }
-            else
-            {
-                alojamientosJSON.Add(BuscarAlojamientoException.ArmarJSONInformacionException("sin resultados"));
-            }
 
             var resp = new {
                 alojamientos = alojamientosJSON,
-                cantidad = alojamientosJSON.Count
+                cantidad = alojamientosJSON.Count,
+                error = alojamientosJSON.Count > 0? null : "404 no se encontraron resultados"
             };
 
             return JObject.FromObject(resp);

@@ -292,7 +292,6 @@ on arrend.cedula equals usu.cedula
                     .FindAll(i => i.fechaAlquiler.GetValueOrDefault().AddMonths(i.numeroMeses) < fechaFin);
 
                 return consulta;
-
             }
 
         }

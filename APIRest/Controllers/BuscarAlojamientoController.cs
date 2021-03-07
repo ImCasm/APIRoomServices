@@ -52,8 +52,7 @@ namespace APIRest.Controllers
         [HttpGet]
         public JObject ConsultarInformacionAlojamiento(DateTime fechaInicio, DateTime fechaFin)
         {
-            return control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);
+            return control.ListarAlojamientosPorFecha(fechaInicio, fechaFin);            
         }
-
     }
 }
